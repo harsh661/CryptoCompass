@@ -5,7 +5,7 @@ import { ShowContext } from '../../context/ShowContext'
 
 const Home = () => {
 
-  const{query, setQuery} = useContext(AppContext)
+  const{query, setQuery, term} = useContext(AppContext)
   const{dark} = useContext(ShowContext)
   const {trendingCoins, trending, searchCoin} = useContext(AppContext)
 
@@ -27,10 +27,10 @@ const Home = () => {
         name="search" 
         value={query} 
         onChange={handleSearch}
-        className={`flex items-center mb-10 p-2 outline-none border-dark-text border-2 w-full ${dark ? 'bg-main-box text-white': 'bg-main-box-light text-light-text'}`}
+        className={`flex items-center mb-5 p-2 outline-none border-dark-text border-2 w-full ${dark ? 'bg-main-box text-white': 'bg-main-box-light text-light-text'}`}
         placeholder='Enter your search'
       />
-      <h2 className={`text-3xl w-full py-5 font-bold ${dark ? 'text-white': 'text-light-text'}`}>Trendig Now</h2>
+      <h2 className={`text-3xl w-full py-3 font-bold ${dark ? 'text-white': 'text-light-text'}`}>{term}</h2>
       {trendingCoins.map(coin => {
         return(
           <div key={coin.id} className='m-2 w-full'>

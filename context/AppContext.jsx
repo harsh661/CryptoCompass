@@ -8,6 +8,7 @@ const AppContextProvider = ({children}) => {
 
   const[trendingCoins, setTrendingCoins] = useState([])
   const[coin,setCoin] = useState([])  //Backup state for trending coins
+  const[term, setTerm] = useState('Trending Now')
   const[query, setQuery] = useState('')
 
 
@@ -38,14 +39,16 @@ const AppContextProvider = ({children}) => {
       }
     })
     setTrendingCoins(coins)
+    setTerm('Search Results')
   } else {
     setTrendingCoins(coin)
+    setTerm('Trending Now')
   }
 
   }, 500)
 
   return (
-    <AppContext.Provider value={{trendingCoins, query, setQuery, setTrendingCoins, searchCoin, trending}}>
+    <AppContext.Provider value={{trendingCoins, query, setQuery, setTrendingCoins, searchCoin, trending, term}}>
         {children}
     </AppContext.Provider>
   )
