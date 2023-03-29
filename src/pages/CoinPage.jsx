@@ -22,20 +22,22 @@ const CoinPage = () => {
   if(!data) return <Loader />
 
   return (
-    <div className={`w-full min-h-screen ${dark ? 'bg-main-bg': 'bg-white'}`}>
+    <div className={`w-full min-h-screen ${dark ? 'bg-main-bg': 'bg-white'} overflow-hidden`}>
       <div className='flex flex-col max-w-5xl mx-auto px-5'>
         <header className='flex flex-col w-full items-center'>
-          <span className='flex items-center gap-2 py-5'>
-              <h2 className={`text-2xl ${dark ? 'text-dark-text': 'text-light-text'} font-semibold`}>#{data.market_cap_rank}</h2>
-            <h2 className={`text-3xl ${dark ? 'text-white': 'text-light-text'} font-semibold `}>{data.name}({data.symbol})</h2>
-            <select className='p-1 text-sm ml-5' name="currency" id="currency" value={currency} onChange={(e)=>setCurrency(e.target.value)}>
-              <option value='inr'>INR</option>
-              <option value="usd">USD</option>
-            </select>
+          <span className='flex items-center justify-between py-5 gap-2'>
+              <h2 className={`text-xl md:text-2xl ${dark ? 'text-dark-text': 'text-light-text'} font-semibold`}>#{data.market_cap_rank}</h2>
+              <h2 className={`text-2xl md:text-3xl ${dark ? 'text-white': 'text-light-text'} font-semibold `}>{data.name}({data.symbol})</h2>
           </span>
           <div className='flex flex-col md:flex-row w-full justify-between items-center gap-5 py-5'>
             <img src={data.image.large} alt="image" className='w-40'/>
             <div className='lext-lg md:text-xl w-full md:w-auto flex flex-col gap-3'>
+              <div className='flex w-full justify-center'>
+                <select className='p-1 text-sm' name="currency" id="currency" value={currency} onChange={(e)=>setCurrency(e.target.value)}>
+                  <option value='inr'>INR</option>
+                  <option value="usd">USD</option>
+                </select>
+              </div>
               <div className='flex gap-5 justify-between'>
                 <span className={key}>24 hr High ({currency == 'inr'? "₹": "$"}): </span>
                 <span className={value}>{currency == 'inr' ? data.market_data.high_24h.inr : data.market_data.high_24h.usd}</span>
@@ -106,9 +108,7 @@ const CoinPage = () => {
             </ResponsiveContainer>
         </div>
         <h2 className={`text-3xl w-full py-5 font-bold ${dark ? 'text-white': 'text-light-text'} text-center`}>About</h2>
-        <div className={`${dark ? 'text-dark-text': 'text-light-text'} text-center pb-10`}>
-          {data.description.en}
-        </div>
+        <div dangerouslySetInnerHTML={{__html:data.description.en}} className={`${dark ? 'text-dark-text': 'text-light-text'} text-center pb-10`}/>
       </div>
     </div>
   )

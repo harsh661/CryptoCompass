@@ -27,7 +27,7 @@ const AppContextProvider = ({children}) => {
   }
 
   const searchCoin = debounce(async () => {
-    if(query.length > 2) {
+    if(query.length >= 3) {
     const res = await axios.get(`https://api.coingecko.com/api/v3/search?query=${query}`)
     
     const coins = res.data.coins.map(coin => {
